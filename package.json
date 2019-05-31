@@ -1,0 +1,17 @@
+{
+  "name": "oracle-soda-node-todos",
+  "version": "0.0.1",
+  "description": "TodoMVC example for Simple Oracle Document Access",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "license": "?",
+  "dependencies": {
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "oracledb": "^3.1.2",
+    "todomvc": "^0.1.1",
+    "todomvc-api": "^0.2.1"
+  }
+}

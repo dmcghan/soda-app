@@ -1,0 +1,10 @@
+{
+  "apps": [{
+    "name": "soda-hol",
+    "script": "/app/index.js",
+    "watch": "/app",
+    "env": {
+      "NODE_ENV": "development"
+    }
+  }]
+}
