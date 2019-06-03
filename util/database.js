@@ -1,6 +1,8 @@
 const oracledb = require('oracledb');
 const databaseConfig = require('../config/database.js');
 
+oracledb.autoCommit = true;
+
 async function initialize() {
   let conn;
 

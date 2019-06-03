@@ -4,12 +4,7 @@ async function get(req, res, next) {
   try {
     const context = {};
 
-    context.id = parseInt(req.params.id, 10);
-    context.skip = parseInt(req.query.skip, 10);
-    context.limit = parseInt(req.query.limit, 10);
-    context.sort = req.query.sort;
-    context.department_id = parseInt(req.query.department_id, 10);
-    context.manager_id = parseInt(req.query.manager_id, 10);
+    context.id = req.params.id;
 
     const rows = await todosDb.find(context);
 
@@ -29,30 +24,22 @@ async function get(req, res, next) {
 
 module.exports.get = get;
 
-function getEmployeeFromRec(req) {
-  const employee = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    phone_number: req.body.phone_number,
-    hire_date: req.body.hire_date,
-    job_id: req.body.job_id,
-    salary: req.body.salary,
-    commission_pct: req.body.commission_pct,
-    manager_id: req.body.manager_id,
-    department_id: req.body.department_id
+function getTodoFromRec(req) {
+  const todo = {
+    title: req.body.title,
+    completed: req.body.completed
   };
 
-  return employee;
+  return todo;
 }
 
 async function post(req, res, next) {
   try {
-    let employee = getEmployeeFromRec(req);
+    let todo = getTodoFromRec(req);
 
-    employee = await todosDb.create(employee);
+    todo = await todosDb.create(todo);
 
-    res.status(201).json(employee);
+    res.status(201).json(todo);
   } catch (err) {
     next(err);
   }
@@ -62,14 +49,14 @@ module.exports.post = post;
 
 async function put(req, res, next) {
   try {
-    let employee = getEmployeeFromRec(req);
+    let todo = getTodoFromRec(req);
 
-    employee.employee_id = parseInt(req.params.id, 10);
+    todo.id = req.params.id;
 
-    employee = await todosDb.update(employee);
+    todo = await todosDb.update(todo);
 
-    if (employee !== null) {
-      res.status(200).json(employee);
+    if (todo !== null) {
+      res.status(200).json(todo);
     } else {
       res.status(404).end();
     }
@@ -82,7 +69,7 @@ module.exports.put = put;
 
 async function del(req, res, next) {
   try {
-    const id = parseInt(req.params.id, 10);
+    const id = req.params.id;
 
     const success = await todosDb.delete(id);
 

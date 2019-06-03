@@ -27,12 +27,12 @@ async function find() {
 
 module.exports.find = find;
 
-async function create(todo) {
+async function create(t) {
   let conn;
 
   try {
     // Prevent changes to param; copy 'todo' to new object
-    todo = Object.assign({}, todo);
+    todo = Object.assign({}, t);
 
     // *** Add SODA call(s) to create and return a todo ***
 
@@ -52,7 +52,7 @@ async function create(todo) {
 
 module.exports.create = create;
 
-async function update(todo) {
+async function update(t) {
   let conn;
 
   try {
