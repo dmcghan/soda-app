@@ -35,9 +35,11 @@ function getTodoFromRec(req) {
 
 async function post(req, res, next) {
   try {
-    let todo = getTodoFromRec(req);
+    const todo = getTodoFromRec(req);
 
-    todo = await todosDb.create(todo);
+    const key = await todosDb.create(todo);
+
+    todo.id = key;
 
     res.status(201).json(todo);
   } catch (err) {
@@ -51,11 +53,11 @@ async function put(req, res, next) {
   try {
     let todo = getTodoFromRec(req);
 
-    todo.id = req.params.id;
+    const success = await todosDb.update(req.params.id, todo);
 
-    todo = await todosDb.update(todo);
-
-    if (todo !== null) {
+    if (success) {
+      todo.id = req.params.id;
+      
       res.status(200).json(todo);
     } else {
       res.status(404).end();

@@ -27,16 +27,13 @@ async function find() {
 
 module.exports.find = find;
 
-async function create(t) {
+async function create(todo) {
   let conn;
 
   try {
-    // Prevent changes to param; copy 'todo' to new object
-    todo = Object.assign({}, t);
+    conn = await oracledb.getConnection();
 
-    // *** Add SODA call(s) to create and return a todo ***
-
-    return todo;
+    // *** Add SODA call(s) to add todo to collection, then return its key ***
   } catch (err) {
     console.error(err);
   } finally {
@@ -52,18 +49,13 @@ async function create(t) {
 
 module.exports.create = create;
 
-async function update(t) {
+async function update(key, todo) {
   let conn;
 
   try {
-    // Prevent changes to param; copy 'todo' to new object
-    const todo = Object.assign({}, t);
-
     conn = await oracledb.getConnection();
 
-    // *** Add SODA call(s) to update and return a todo ***
-
-    return todo;
+    // *** Add SODA call(s) to update todo, then return true/false for success ***
   } catch (err) {
     console.error(err);
   } finally {
@@ -79,20 +71,22 @@ async function update(t) {
 
 module.exports.update = update;
 
-async function del(id) {
+async function del(key) {
   let conn;
 
   try {
     conn = await oracledb.getConnection();
 
-    // *** Add SODA call(s) to get 'todos' collection ***
+    const collection = await soda.openCollection('todos');
 
     let result;
 
-    if (id) {
+    if (key) {
       // *** Use 'todos' collection to remove a single todo ***
+      // result = [api call here]
     } else {
       // *** Use 'todos' collection to remove completed todos ***
+      // result = [api call here]
     }
 
     return result.count >= 1;
