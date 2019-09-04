@@ -5,6 +5,7 @@ module.exports = {
     connectString: 'tododb_tp', // service name in /db_credentials/tnsnames.ora
     poolMin: 2,
     poolMax: 2,
-    poolIncrement: 0
+    poolIncrement: 0,
+    events: false
   }
 };
