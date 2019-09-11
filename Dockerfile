@@ -20,7 +20,7 @@ RUN yum update -y && \
   npm install pm2 -g && \
   npm install express@4.16.4 -g && \
   npm install morgan@1.9.1 -g && \
-  npm install oracledb@4.0.0 -g && \
+  npm install oracledb@4.0.1 -g && \
   npm install todomvc@0.1.1 -g && \
   node --version && \
   npm --version && \
